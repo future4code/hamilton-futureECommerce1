@@ -4,19 +4,11 @@ import ProdutoCarrinho from "./ProdutoCarrinho";
 
 export default class Carrinho extends Component {
   render() {
-    let total = 0;
-    let viagens = 0;
-
-    this.props.propsListaAdicionados.forEach(element => {
-      total += element.quantidade * element.preco;
-      viagens += element.quantidade;
-    });
-
     return (
       <>
         <Container show={this.props.show}>
           <Header>
-            <Texts>Sua Viagens ({viagens})</Texts>
+            <Texts>Sua Viagens ({this.props.viagensTotal})</Texts>
             <ExitButton onClick={this.props.closeCart}>X</ExitButton>
           </Header>
           <ProductList>
@@ -28,7 +20,7 @@ export default class Carrinho extends Component {
               />
             ))}
           </ProductList>
-          <Texts>Total: R${total},00</Texts>
+          <Texts>Total: R${this.props.valorTotal},00</Texts>
         </Container>
         <Overlay show={this.props.show} onClick={this.props.closeCart} />
       </>
