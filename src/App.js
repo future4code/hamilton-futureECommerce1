@@ -19,28 +19,68 @@ const list = [
   }
 ];
 
-const listaAdicionados = [
-  {
-    nome: "Marte",
-    preco: 70,
-    quantidade: 1
-  }
-];
-
 const valorMinino = 0;
 const valorMaximo = Infinity;
 const nomeBusca = "";
 
 class App extends React.Component {
-  state = {
-    mostrarCarrinho: true
-  };
+  constructor(props){
+    super(props)
+  
+  this.state = {
+
+    listaAdicionados:[ 
+    {
+      nome: "Marte",
+      preco: 70,
+      quantidade: 1,
+    }
+  ],
+
+    mostrarCarrinho: true,
+   }
+
+};
+
+  adicionaAoCarrinho = (produtoAdicionado) => {
+    let novaListaAdicionados
+    const objeto = this.state.listaAdicionados.find(elemento => elemento.nome === produtoAdicionado.nome)
+
+    if(!objeto) {
+      novaListaAdicionados = [...this.state.listaAdicionados, produtoAdicionado]
+    } else {
+      novaListaAdicionados = [...this.state.listaAdicionados]
+      objeto.quantidade++
+    }
+    
+
+    this.setState({
+      listaAdicionados: novaListaAdicionados
+    })
+  }
+
+
+  removerItemCarrinho = (nomeProdutoParaRemover) => {
+
+    let novaLista = this.state.listaAdicionados.filter( produto =>{
+
+      return produto.nome !== nomeProdutoParaRemover
+    })
+  
+
+   this.setState({
+     listaAdicionados: novaLista
+   })
+  }
+
 
   mostrarEsconderCarrinho = () => {
     this.setState({
       mostrarCarrinho: !this.state.mostrarCarrinho
     });
   };
+
+
 
   render() {
     const listaFiltrada = list.filter(
@@ -53,9 +93,13 @@ class App extends React.Component {
     return (
       <Container>
         <Filtro />
-        <Catalogo propsListaDeProdutos={listaFiltrada} />
+        <Catalogo propsFuncaoAdicionar={this.adicionaAoCarrinho} 
+        propsListaDeProdutos={listaFiltrada} />
         {this.state.mostrarCarrinho && (
-          <Carrinho propsListaAdicionados={listaAdicionados} />
+          <Carrinho 
+          propsListaAdicionados={this.state.listaAdicionados} 
+          funcaoParaRemover={this.removerItemCarrinho}
+          />
         )}
         <CartButton onClick={this.mostrarEsconderCarrinho}>Carrinho</CartButton>
       </Container>

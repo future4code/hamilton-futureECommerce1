@@ -10,13 +10,16 @@ export default class Carrinho extends Component {
       total += element.quantidade * element.preco;
     });
 
+
+
     return (
       <Container>
         <h2>Carrinho:</h2>
         {this.props.propsListaAdicionados.map(element => (
           <ProdutoCarrinho
-            propsNome={element.nome}
-            propsQuantidade={element.quantidade}
+          ApagarDoCarrinho = {this.props.funcaoParaRemover}  
+          propsNome={element.nome}
+          propsQuantidade={element.quantidade}
           />
         ))}
         <p>Total: R${total},00</p>

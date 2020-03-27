@@ -2,13 +2,24 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 export default class Produto extends Component {
+
+
+  onClickAdicionarCarrinho = () => {
+      const produtoAdicionado = {
+        nome: this.props.propsNome,
+        preco: this.props.propsPreco,
+        quantidade: 1,
+      }
+      this.props.adicionaAoCarrinho (produtoAdicionado)
+  }
+
   render() {
     return (
       <Container>
         <img src={this.props.propsImagem} />
         <p>{this.props.propsNome}</p>
         <p>R${this.props.propsPreco}</p>
-        <Button>Adicionar ao Carrinho</Button>
+        <Button onClick={this.onClickAdicionarCarrinho}>Adicionar ao Carrinho</Button>
       </Container>
     );
   }
