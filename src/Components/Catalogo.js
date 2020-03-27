@@ -26,6 +26,8 @@ const ListaDeProdutos = styled.div`
 let crescente = false;
 
 export default class Catalogo extends Component {
+
+
   render() {
     const listaCrescente = this.props.propsListaDeProdutos.sort(
       (a, b) => a.preco - b.preco
@@ -44,7 +46,11 @@ export default class Catalogo extends Component {
         </Header>
         <ListaDeProdutos>
           {listaCrescente.map(element => (
-            <Produto propsNome={element.nome} propsPreco={element.preco} />
+            <Produto 
+            adicionaAoCarrinho={this.props.propsFuncaoAdicionar}
+            propsViagem={element.nome, element.preco, element.quantidade} 
+            propsNome={element.nome} 
+            propsPreco={element.preco} />
           ))}
         </ListaDeProdutos>
       </Container>
