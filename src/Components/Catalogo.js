@@ -51,9 +51,10 @@ const Container = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: 100%;
-  box-shadow: inset 0 0 10px #000000;
+  min-height: 100%;
   flex: 1;
+
+  box-shadow: inset 0 0 10px #000000;
 
   ${props =>
     props.sticky &&
@@ -77,6 +78,7 @@ const ListaDeProdutos = styled.div`
   box-sizing: border-box;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
   column-gap: 20px;
   row-gap: 20px;
 `;

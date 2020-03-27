@@ -6,9 +6,6 @@ import styled, { css } from "styled-components";
 import Produtos from "./Produtos";
 import Terra from "./Img/terra.jpg";
 
-const valorMinino = 0;
-const valorMaximo = Infinity;
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -20,8 +17,8 @@ class App extends React.Component {
       listaAdicionados: [],
       mostrarCarrinho: false,
       stickyHeader: false,
-      valorMinino: 0,
-      valorMaximo: 0,
+      valorMinino: "",
+      valorMaximo: "",
       nomeBusca: ""
     };
   }
@@ -35,12 +32,24 @@ class App extends React.Component {
   componentDidMount() {
     this.scrollTreshold = this.headerRef.current.offsetTop;
     window.onscroll = this.stickyHeader;
+
+    const cart = localStorage.getItem("carrinho");
+
+    if (cart)
+      this.setState({
+        listaAdicionados: JSON.parse(cart)
+      });
   }
 
   componentDidUpdate() {
     document.body.style.overflowY = this.state.mostrarCarrinho
       ? "hidden"
       : "scroll";
+
+    localStorage.setItem(
+      "carrinho",
+      JSON.stringify(this.state.listaAdicionados)
+    );
   }
 
   stickyHeader = () => {
@@ -80,6 +89,10 @@ class App extends React.Component {
   };
 
   render() {
+    const valorMinino = Number(this.state.valorMinino);
+    const valorMaximo =
+      this.state.valorMaximo != "" ? Number(this.state.valorMaximo) : Infinity;
+
     const listaFiltrada = Produtos.lista.filter(
       element =>
         element.preco <= valorMaximo &&
@@ -89,9 +102,17 @@ class App extends React.Component {
           .search(this.state.nomeBusca.toUpperCase()) !== -1
     );
 
+    let valorTotal = 0;
+    let viagensTotal = 0;
+
+    this.state.listaAdicionados.forEach(element => {
+      valorTotal += element.quantidade * element.preco;
+      viagensTotal += element.quantidade;
+    });
+
     return (
       <Container>
-        <Header img={Terra}></Header>
+        <Background img={Terra}></Background>
         <Filtro
           valorMaximo={this.state.valorMaximo}
           valorMinino={this.state.valorMinino}
@@ -100,7 +121,7 @@ class App extends React.Component {
           openCart={this.mostrarEsconderCarrinho}
           ref={this.headerRef}
           sticky={this.state.stickyHeader}
-          carrinhoTotal={this.state.listaAdicionados.length}
+          carrinhoTotal={viagensTotal}
         />
         <Catalogo
           sticky={this.state.stickyHeader}
@@ -112,20 +133,15 @@ class App extends React.Component {
           closeCart={this.mostrarEsconderCarrinho}
           propsListaAdicionados={this.state.listaAdicionados}
           funcaoParaRemover={this.removerItemCarrinho}
+          valorTotal={valorTotal}
+          viagensTotal={viagensTotal}
         />
-        {/* <CartButton onClick={this.mostrarEsconderCarrinho}>Carrinho</CartButton> */}
       </Container>
     );
   }
 }
 
-const CartButton = styled.button`
-  position: fixed;
-  bottom: 50px;
-  right: 50px;
-`;
-
-const Header = styled.div`
+const Background = styled.div`
   position: absolute;
   flex: none;
   height: 370px;
