@@ -1,0 +1,64 @@
+{
+  "lista": [
+    {
+      "id": 1,
+      "nome": "júpiter",
+      "img": "jupiter",
+      "preco": 20
+    },
+    {
+      "id": 2,
+      "nome": "lua",
+      "img": "lua",
+      "preco": 30
+    },
+    {
+      "id": 3,
+      "nome": "marte",
+      "img": "marte",
+      "preco": 30
+    },
+    {
+      "id": 4,
+      "nome": "mercúrio",
+      "img": "mercurio",
+      "preco": 40
+    },
+    {
+      "id": 5,
+      "nome": "netuno",
+      "img": "netuno",
+      "preco": 50
+    },
+    {
+      "id": 6,
+      "nome": "plutao",
+      "img": "plutao",
+      "preco": 60
+    },
+    {
+      "id": 7,
+      "nome": "saturno",
+      "img": "saturno",
+      "preco": 70
+    },
+    {
+      "id": 8,
+      "nome": "terra",
+      "img": "terra",
+      "preco": 80
+    },
+    {
+      "id": 9,
+      "nome": "urano",
+      "img": "urano",
+      "preco": 90
+    },
+    {
+      "id": 10,
+      "nome": "venus",
+      "img": "venus",
+      "preco": 100
+    }
+  ]
+}

@@ -1,39 +1,117 @@
 import React, { Component } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import ProdutoCarrinho from "./ProdutoCarrinho";
 
 export default class Carrinho extends Component {
   render() {
     let total = 0;
+    let viagens = 0;
 
     this.props.propsListaAdicionados.forEach(element => {
       total += element.quantidade * element.preco;
+      viagens += element.quantidade;
     });
 
-
-
     return (
-      <Container>
-        <h2>Carrinho:</h2>
-        {this.props.propsListaAdicionados.map(element => (
-          <ProdutoCarrinho
-          ApagarDoCarrinho = {this.props.funcaoParaRemover}  
-          propsNome={element.nome}
-          propsQuantidade={element.quantidade}
-          />
-        ))}
-        <p>Total: R${total},00</p>
-      </Container>
+      <>
+        <Container show={this.props.show}>
+          <Header>
+            <Texts>Sua Viagens ({viagens})</Texts>
+            <ExitButton onClick={this.props.closeCart}>X</ExitButton>
+          </Header>
+          <ProductList>
+            {this.props.propsListaAdicionados.map(element => (
+              <ProdutoCarrinho
+                ApagarDoCarrinho={this.props.funcaoParaRemover}
+                propsNome={element.nome}
+                propsQuantidade={element.quantidade}
+              />
+            ))}
+          </ProductList>
+          <Texts>Total: R${total},00</Texts>
+        </Container>
+        <Overlay show={this.props.show} onClick={this.props.closeCart} />
+      </>
     );
   }
 }
 
-const Container = styled.div`
+const Header = styled.div`
+  flex: none;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const ProductList = styled.div`
+  height: 100%;
+  width: 100%;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Texts = styled.p`
+  box-sizing: border-box;
+  flex: none;
+  color: #939393;
+  font-size: 20px;
+  margin: 20px 50px;
+`;
+
+const ExitButton = styled(Texts)`
+  cursor: pointer;
+  border: 2px solid #939393;
+  padding: 0px 5px;
+  border-radius: 50%;
+`;
+
+const Overlay = styled.div`
+  position: fixed;
+  z-index: 2;
+  top: 0px;
+  right: 0px;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(0, 0, 0, 0.7);
+
+  transition: 0.3s ease-out;
+
+  ${props =>
+    !props.show &&
+    css`
+      background-color: transparent;
+      pointer-events: none;
+    `}
+`;
+
+const Container = styled.div`
+  position: fixed;
+  z-index: 3;
+  top: 0px;
+  right: 0px;
+
+  width: 50%;
+  max-width: 500px;
+  height: 100%;
+
+  background-color: white;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: flex-start;
-  border: 1px black solid;
-  padding: 10px;
-  margin: 10px;
+
+  transition: 0.3s ease-out;
+
+  ${props =>
+    !props.show &&
+    css`
+      right: -50%;
+    `}
 `;
