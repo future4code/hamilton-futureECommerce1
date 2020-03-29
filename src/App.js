@@ -4,7 +4,7 @@ import Catalogo from "./Components/Catalogo";
 import Carrinho from "./Components/Carrinho";
 import styled, { css } from "styled-components";
 import Produtos from "./Produtos";
-import Terra from "./Img/terra.jpg";
+import BackgroundImg from "./Img/via-lactea.jpg";
 
 class App extends React.Component {
   constructor(props) {
@@ -112,7 +112,7 @@ class App extends React.Component {
 
     return (
       <Container>
-        <Background imgProps={Terra}></Background>
+        <Background imgProps={BackgroundImg}></Background>
         <Filtro
           valorMaximo={this.state.valorMaximo}
           valorMinino={this.state.valorMinino}
@@ -148,9 +148,9 @@ const Background = styled.div`
   width: 100%;
   background-image: url(${props => props.imgProps});
   background-attachment: fixed;
-  background-position: center;
+  background-position: top;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 100% 50%;
   z-index: -1;
 `;
 
