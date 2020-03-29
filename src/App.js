@@ -14,8 +14,8 @@ const list = [
     preco: 70
   },
   {
-    nome: "Marte",
-    preco: 70
+    nome: "Netuno",
+    preco: 100
   }
 ];
 
