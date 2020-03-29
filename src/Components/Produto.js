@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import plante from "../Img/terra.jpg";
 
 export default class Produto extends Component {
   onClickAdicionarCarrinho = () => {
