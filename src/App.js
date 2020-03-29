@@ -44,7 +44,7 @@ class App extends React.Component {
   componentDidUpdate() {
     document.body.style.overflowY = this.state.mostrarCarrinho
       ? "hidden"
-      : "scroll";
+      : "auto";
 
     localStorage.setItem(
       "carrinho",
