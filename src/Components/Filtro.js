@@ -4,7 +4,6 @@ import cartIcon from "../Img/deliver.png";
 
 class Filtro extends Component {
   render() {
-    console.log(this.props.valorMinino);
     return (
       <Header ref={this.props.innerRef} sticky={this.props.sticky}>
         <InputWrapper>
@@ -128,6 +127,4 @@ const Header = styled.header`
     `};
 `;
 
-export default React.forwardRef((props, ref) => (
-  <Filtro innerRef={ref} {...props} />
-));
+export default Filtro;

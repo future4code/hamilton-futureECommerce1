@@ -41,6 +41,12 @@ class App extends React.Component {
       });
   }
 
+  stickyHeader = () => {
+    this.setState({
+      stickyHeader: window.pageYOffset > this.scrollTreshold
+    });
+  };
+
   componentDidUpdate() {
     document.body.style.overflowY = this.state.mostrarCarrinho
       ? "hidden"
@@ -51,12 +57,6 @@ class App extends React.Component {
       JSON.stringify(this.state.listaAdicionados)
     );
   }
-
-  stickyHeader = () => {
-    this.setState({
-      stickyHeader: window.pageYOffset > this.scrollTreshold
-    });
-  };
 
   adicionaAoCarrinho = produtoAdicionado => {
     let novaListaAdicionados = [...this.state.listaAdicionados];
@@ -112,14 +112,14 @@ class App extends React.Component {
 
     return (
       <Container>
-        <Background img={Terra}></Background>
+        <Background imgProps={Terra}></Background>
         <Filtro
           valorMaximo={this.state.valorMaximo}
           valorMinino={this.state.valorMinino}
           nomeBusca={this.state.nomeBusca}
           onChangeInput={this.onChangeInput}
           openCart={this.mostrarEsconderCarrinho}
-          ref={this.headerRef}
+          innerRef={this.headerRef}
           sticky={this.state.stickyHeader}
           carrinhoTotal={viagensTotal}
         />
@@ -146,7 +146,7 @@ const Background = styled.div`
   flex: none;
   height: 370px;
   width: 100%;
-  background-image: url(${props => props.img});
+  background-image: url(${props => props.imgProps});
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
