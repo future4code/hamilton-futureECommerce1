@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
+
+
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -11,18 +14,34 @@ const Container = styled.div`
   margin: 10px;
 `;
 
+
 export default class Filtro extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      
+    }
+
+  }
+  
   render() {
+    console.log(this.props.escreveValorMinimo)
     return (
       <Container>
         <h2> Filtros:</h2>
+        
         <label>Valor Mínimo</label>
-        <input type="number" />
+        <input value={this.props.digitadoValorMinimo} 
+        onChange={this.props.escreveValorMinino} type="number" />
         <label>Valor Máximo</label>
-        <input type="number" />
+        <input value={this.props.digitadoValorMaximo} 
+        onChange={this.props.escreveValorMaximo} type="number" />
         <label>Buscar Produto</label>
-        <input type="text" />
+        <input value={this.props.buscarProduto} 
+        onChange={this.props.onChangeBuscarProduto} type="text" />
       </Container>
     );
   }
 }
+
+
